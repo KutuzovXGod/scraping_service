@@ -5,11 +5,13 @@ from .forms import FindForm
 from .models import Vacancy
 # Create your views here.
 
+
 def home_view(request):
     # print(request.GET)
     form = FindForm()
 
     return render(request, 'scraping/home.html', {'form': form})
+
 
 def list_view(request):
     # print(request.GET)

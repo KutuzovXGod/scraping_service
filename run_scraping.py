@@ -22,12 +22,12 @@ parsers = (
     (work, 'work'),
 )
 jobs, errors = [], []
-def  get_settings():
+
+
+def get_settings():
     qs = User.objects.filter(send_email=True).values()
     settings_lst = set((q['city_id'], q['language_id']) for q in qs)
     return settings_lst
-
-
 
 
 def get_urls(_settings):
@@ -35,11 +35,12 @@ def get_urls(_settings):
     url_dct = {(q['city_id'], q['language_id']): q['url_data'] for q in qs}
     urls = []
     for pair in _settings:
-        tmp = {}
-        tmp['city'] = pair[0]
-        tmp['language'] = pair[0]
-        tmp['url_data'] = url_dct[pair]
-        urls.append(tmp)
+        if pair in url_dct:
+            tmp = {}
+            tmp['city'] = pair[0]
+            tmp['language'] = pair[0]
+            tmp['url_data'] = url_dct[pair]
+            urls.append(tmp)
     return urls
 
 
@@ -75,7 +76,7 @@ for job in jobs:
     except DatabaseError:
         pass
 if errors:
-    er = Error(data=errors).save()
+    er = Error(data=f'errors:{errors}').save()
 
 # h = codecs.open('work.txt', 'w', 'utf-8')
 # h.write(str(jobs))
