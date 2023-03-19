@@ -64,3 +64,7 @@ class UserUpdateForm(forms.Form):
         model = User
         fields = ('city', 'language', 'send_email')
 
+
+class ContactForm(forms.Form):
+    pass
+
