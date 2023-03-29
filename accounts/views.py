@@ -1,13 +1,13 @@
-from datetime import dt
+import datetime as dt
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout, get_user_model
 from django.contrib import messages
 
-from accounts.forms import UserLoginForm, UserRegistrationForm, UserUpdateForm,  ContactForm
+from accounts.forms import UserLoginForm, UserRegistrationForm, UserUpdateForm, \
+    ContactForm
 from scraping.models import Error
 
 User = get_user_model()
-
 
 def login_view(request):
     form = UserLoginForm(request.POST or None)
@@ -32,9 +32,9 @@ def register_view(request):
         new_user = form.save(commit=False)
         new_user.set_password(form.cleaned_data['password'])
         new_user.save()
-        messages.success(request, 'Пользователь добавлен в систему')
+        messages.success(request, 'Пользователь добавлен в систему.')
         return render(request, 'accounts/register_done.html',
-                      {'new_user':new_user})
+                      {'new_user': new_user})
     return render(request, 'accounts/register.html', {'form': form})
 
 
@@ -68,7 +68,7 @@ def delete_view(request):
         if request.method == 'POST':
             qs = User.objects.get(pk=user.pk)
             qs.delete()
-            messages.error(request, 'Пользователь удален ;(')
+            messages.error(request, 'Пользователь удален :(')
     return redirect('home')
 
 
@@ -90,8 +90,8 @@ def contact(request):
             else:
                 data = [{'city': city, 'email': email, 'language': language}]
                 Error(data=f"user_data:{data}").save()
-            # messages.success(request, 'Данные отправлены администрации.')
-            # return redirect('accounts:update')
+            messages.success(request, 'Данные отправлены администрации.')
+            return redirect('accounts:update')
         else:
             return redirect('accounts:update')
     else:
