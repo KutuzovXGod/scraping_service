@@ -24,12 +24,22 @@
             <p class="my-2">Ели вы не нашли подходящий набор город, специальность,
                 вы можете заполнить форму ниже с Вашими пожеланиями. После того,
                 как необходимые данные будут добавлены, Вы получите письмо на указаный вами эмайл</p>
-        <form method="POST" action="{% url 'accounts:contact' %}">{% csrf_token %}
-        <div class="form-group">
-        {{ contact_form.as_p }}
-        </div>
-        <button type="submit" class="btn btn-primary">Отправить</button>
-    </form>
+        <p>
+      <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapsed" aria-expanded="false" aria-controls="collapseExample">
+        Показать форму
+      </button>
+    </p>
+    <div class="collapse" id="collapsed">
+      <div class="card card-body">
+         <form method="POST" action="{% url 'accounts:contact' %}">{% csrf_token %}
+            <div class="form-group">
+            {{ contact_form.as_p }}
+            </div>
+            <button type="submit" class="btn btn-primary">Отправить</button>
+         </form>
+      </div>
+    </div>
+
 
     </div>
 </div>
