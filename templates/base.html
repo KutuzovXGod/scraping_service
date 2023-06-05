@@ -1,4 +1,7 @@
 {% load static %}
+{%  url 'accounts:update' as update_url%}
+{%  url 'accounts:register' as register_url %}
+{%  url 'accounts:login' as login_url %}
 <!doctype html>
 <html lang="en">
   <head>
@@ -13,7 +16,7 @@
   </head>
   <body>
   <div class="container">
-     <nav class="navbar navbar-expand-lg navbar-light " style="background-color: #bbbbbb;">
+     <nav class="navbar navbar-expand-lg navbar-dark " style="background-color: #bbbbbb;">
         <a class="navbar-brand" href="{% url 'home' %}" id="brand">Job Finder</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
@@ -25,16 +28,16 @@
                  <li class="nav-item">
                  <a class="nav-link" href="{% url 'accounts:logout' %}">выйти</a>
                 </li>
-                   <li class="nav-item">
-                 <a class="nav-link" href="{% url 'accounts:update' %}">Настройки</a>
+                  <li class="nav-item {% if request.path == update_url %} active {% endif %}">
+                 <a class="nav-link" href="{% url 'accounts:update' %}">Профиль</a>
                 </li>
 
 
               {% else %}
-                  <li class="nav-item">
+                  <li class="nav-item {% if request.path == login_url %} active {% endif %}">
                   <a class="nav-link" href="{% url 'accounts:login' %}">войти</a>
                   </li>
-                  <li class="nav-item">
+                  <li class="nav-item {% if request.path == register_url_url %} active {% endif %}">
                     <a class="nav-link" href="{% url 'accounts:register' %}">регистрация</a>
                     </li>
               {% endif %}
